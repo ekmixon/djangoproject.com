@@ -11,9 +11,7 @@ def index(request):
     """
     Displays the latest feeds of each type.
     """
-    feeds = []
-    for ft in FeedType.objects.all():
-        feeds.append((ft, ft.items()[0:5]))
+    feeds = [(ft, ft.items()[:5]) for ft in FeedType.objects.all()]
     ctx = {'feedtype_list': feeds}
     return render(request, 'aggregator/index.html', ctx)
 

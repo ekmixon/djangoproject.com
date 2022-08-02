@@ -71,7 +71,7 @@ class AggregatorTests(TestCase):
         for feed in [self.approved_feed, self.denied_feed, self.pending_feed]:
             models.FeedItem.objects.get_or_create(
                 feed=feed,
-                title="%s Item" % feed.title,
+                title=f"{feed.title} Item",
                 link=feed.public_url,
                 date_modified=datetime.datetime.now(),
                 guid=feed.title,

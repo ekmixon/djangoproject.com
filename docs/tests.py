@@ -298,13 +298,16 @@ class UpdateDocTests(TestCase):
         release = DocumentRelease.objects.create(
             lang=lang, release=Release.objects.create(version=version),
         )
-        release.sync_to_db([
-            {'body': '', 'title': '', 'current_page_name': 'nonexcluded/bar'},
-            {'body': '', 'title': '', 'current_page_name': '%s/bar' % path},
-        ])
+        release.sync_to_db(
+            [
+                {'body': '', 'title': '', 'current_page_name': 'nonexcluded/bar'},
+                {'body': '', 'title': '', 'current_page_name': f'{path}/bar'},
+            ]
+        )
+
         self.assertQuerysetEqual(
             release.documents.all(),
-            ['<Document: %s/%s/nonexcluded/bar>' % (lang, version)]
+            [f'<Document: {lang}/{version}/nonexcluded/bar>'],
         )
 
 
